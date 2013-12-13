@@ -9,3 +9,8 @@ reated by http://gitignore.io
 *.pidb
 *.resources
 test-results/
+bin/
+obj/
+
+### KDE 4
+.directory
