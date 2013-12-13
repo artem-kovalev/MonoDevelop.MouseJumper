@@ -1,4 +1,4 @@
 MonoDevelop.MouseJumper
 =======================
 
-MonoDevelop Addins Go to Implementation on CTRL+Left Mouse
+MonoDevelop Addins Go to Implementation by CTRL+Left Mouse
