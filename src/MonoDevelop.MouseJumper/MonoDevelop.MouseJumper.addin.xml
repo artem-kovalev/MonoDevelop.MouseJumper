@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Addin 
+	namespace = "MonoDevelop.MouseJumper"
+	id = "MouseJumper"
+	name = "Mouse Jumper Addin"
+	author = "Artem Kovalev"
+	copyright = "MIT/X11"
+	description = ""
+	version = "0.1"	>
+
+	<Dependencies>
+		<Addin id="::MonoDevelop.Ide" version="4.0"></Addin>
+	</Dependencies>
+
+	<Runtime>
+		<Import assembly="MonoDevelop.MouseJumper.dll"/>
+	</Runtime>
+
+</Addin>
+
