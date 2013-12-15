@@ -23,7 +23,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using Mono.Addins;
 using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
@@ -32,10 +31,12 @@ using MonoDevelop.Refactoring;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using Gdk;
+using System;
+using Mono.Addins;
 
 namespace MonoDevelop.MouseJumper
 {
-    [Extension(Path = "/MonoDevelip/Ide/StartupHandlers", NodeName = "Class")]
+    [Extension(Path = "/MonoDevelop/Ide/StartupHandlers", NodeName = "Class")]
     public class StartupHandler : CommandHandler
     {
         readonly JumperDecorator decorator = new JumperDecorator();

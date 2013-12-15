@@ -5,11 +5,13 @@
 	name = "Mouse Jumper Addin"
 	author = "Artem Kovalev"
 	copyright = "MIT/X11"
-	description = ""
+	description = "Go to declaration by CTRL+Left Mouse button"
+	category="IDE extensions"
 	version = "0.1"	>
 
 	<Dependencies>
 		<Addin id="::MonoDevelop.Ide" version="4.0"></Addin>
+		<Addin id="::MonoDevelop.Refactoring" version="4.0" />
 	</Dependencies>
 
 	<Runtime>

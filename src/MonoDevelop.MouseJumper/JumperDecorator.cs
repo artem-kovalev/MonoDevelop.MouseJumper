@@ -26,6 +26,7 @@
 using System;
 using MonoDevelop.Ide.Gui;
 using Mono.TextEditor;
+using Cairo;
 
 namespace MonoDevelop.MouseJumper
 {
@@ -38,42 +39,69 @@ namespace MonoDevelop.MouseJumper
         {
             if (document == null)
                 throw new ArgumentNullException("document");
+           
+            var segment = FindSegment(mouseX, mouseY, document.Editor);
+            var selectedWord = document.Editor.Parent.GetTextAt(segment);
+            if (!IsNeedDrawForWord(selectedWord))
+                return;
 
-            textDocument = document.Editor.Document;
+            var newMarker = CreateMarker(segment, 
+                                document.Editor.ColorStyle.KeywordNamespace.Foreground);
 
-            var editor = document.Editor;
+            SetTextDocument(document);
+            SetMarker(newMarker);
 
-            var location = editor.Parent.PointToLocation(mouseX, mouseY);
-            var offset = editor.LocationToOffset(location);
+        }
 
+        private TextSegment FindSegment(double x, double y, TextEditorData editor)
+        {
+            var xWithMarginOffset = x - editor.Parent.TextViewMargin.XOffset;
+
+            var location = editor.Parent.PointToLocation(xWithMarginOffset, y);
+            var offset = editor.Parent.LocationToOffset(location);
+            
             var startWord = editor.FindCurrentWordStart(offset);
             var endWord = editor.FindCurrentWordEnd(offset);
+            return new TextSegment(startWord, endWord - startWord);
+        }
 
-            marker = new UnderlineTextSegmentMarker(
-                editor.ColorStyle.KeywordNamespace.Foreground, 
-                new TextSegment(startWord, endWord - startWord));
-            marker.IsVisible = true;
-            marker.Wave = false;
+        private bool IsNeedDrawForWord(String word)
+        {
+            return !String.IsNullOrWhiteSpace(word);
+        }
 
+        private UnderlineTextSegmentMarker CreateMarker(TextSegment segment, 
+                                                        Color color)
+        {
+            return new UnderlineTextSegmentMarker(color, segment)
+            {
+                IsVisible = true,
+                Wave = false
+            };
+        }
 
-            textDocument.AddMarker(marker);
-            editor.Parent.QueueDraw();
+        private void SetTextDocument(Document document)
+        {
+            textDocument = document.Editor.Document;
+        }
+
+        private void SetMarker(UnderlineTextSegmentMarker newMarker)
+        {
+            var oldMarker = marker;
+            marker = newMarker;
+
+            if (textDocument == null)
+                return;
+
+            if (oldMarker != null)
+                textDocument.RemoveMarker(oldMarker);
+            if (newMarker != null)
+                textDocument.AddMarker(newMarker);
         }
 
         public void Clean()
         {
-            try
-            {
-                if (textDocument != null && marker != null)
-                {    
-                    textDocument.RemoveMarker(marker);
-                }
-            }
-            finally
-            {
-                marker = null;
-            }
-
+            SetMarker(null);
         }
     }
 }
