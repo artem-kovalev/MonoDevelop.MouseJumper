@@ -10,8 +10,8 @@
 	version = "0.1"	>
 
 	<Dependencies>
-		<Addin id="::MonoDevelop.Ide" version="4.0"></Addin>
-		<Addin id="::MonoDevelop.Refactoring" version="4.0" />
+		<Addin id="::MonoDevelop.Ide" version="4.3.0"></Addin>
+		<Addin id="::MonoDevelop.Refactoring" version="4.3.0" />
 	</Dependencies>
 
 	<Runtime>
